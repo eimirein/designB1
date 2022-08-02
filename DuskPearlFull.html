@@ -1,0 +1,392 @@
+<!DOCTYPE html> <html>
+<body id='body' class='bounded'>
+	
+	<!-- Design structure -->
+	<div id='core' class='bounded'>
+		<!-- Custom image section -->
+		<img id='headerArt' class='nosel nil' src='https://pbs.twimg.com/media/E77uLkDUUAQQQ_w?format=jpg&name=medium'>
+		<!-- About Me content section -->
+		<div id='aboutMe'>
+			
+			<!-- Two buttons on the bottom left of the [#headerArt] -->
+			<div id='themeDark' class='themeBadge nosel'>あ</div>
+			<div id='themeBright' class='themeBadge nosel'>あ</div>
+			
+			<!-- User message: Title -->
+			<div id='titleOrAuthor' class='nosel nil'>Artwork by: Aちき (@atikix)</div>
+			
+			<!-- User message: Introduction -->
+			<div id='msgBox1' class='msgBox msgLeft item'>
+				<div class='msgBoxTop msgTopLeft'></div>
+				<div id='userIntro' class='msgBoxText msgTextLeft'>
+					デザイン：akibourei (@eimirein)<br>
+					デザイン名：「夕闇の珠」<br>
+					フォント：よもぎ、Noto Sans JP<br>
+					Designed by: akibourei (@eimirein)<br>
+					Design name: 'Dusk Pearl'<br>
+					Font : Yomogi, Noto Sans JP<br>
+				</div>
+			</div>
+			
+			<!-- List: Right -->
+			<div id='msgBox2' class='msgBox msgRight item'>
+				<div class='msgBoxText msgTextRight'>
+					Last completed anime :<br>
+					<div id='galleryA' class='msgGallery'>
+						<a class='msgGalleryEntry' style="background-image: url('i1.png')"
+							href='https://myanimelist.net/anime/45613/Kawaii_dake_ja_Nai_Shikimori-san'></a>
+						<a class='msgGalleryEntry' style="background-image: url('i2.png')"
+							href='https://myanimelist.net/anime/50265/Spy_x_Family'></a>
+					</div>
+				</div>
+				<div class='msgBoxTop msgTopRight'></div>
+			</div>
+			
+			<!-- List: Left -->
+			<div id='msgBox3' class='msgBox msgLeft item'>
+				<div class='msgBoxTop msgTopLeft'></div>
+				<div class='msgBoxText msgTextLeft'>
+					Watching this season :<br>
+					<div id='galleryB' class='msgGallery'>
+						(Amount of entries in this and above field is unlimited)
+					</div>
+				</div>
+			</div>
+			
+			<div id='justASpacer' style='float: left; width: 100%; height: 5vmin'></div>
+		</div>
+	</div>
+	
+	<!-- Decorative: Debug mode/showcase of the functionality -->
+	<div id='showcase' class='nosel'>
+		<div class='sc_title'>Hover over me!</div>
+		<input id='sc_em1' class='sc_inp' placeholder='title text'/>
+		<input id='sc_em2' class='sc_inp' placeholder='intro text'/>
+		<div id='sc_em3' class='sc_btn' style='width:100%' onclick=""
+			>click to write changes</div>
+		<input id='sc_em4' class='sc_inp' placeholder='entry image: <str: url>'/>
+		<input id='sc_em5' class='sc_inp' placeholder='entry href: <str: url>'/>
+		<div id='sc_em6' class='sc_btn'>+entry in [#galleryA]</div>
+		<div id='sc_em7' class='sc_btn'>+entry in [#galleryB]</div>
+	</div>
+	
+</body>
+
+<!-- DuskPearlStyle.css -->
+<style>
+	@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100&display=swap');
+	@import url('https://fonts.googleapis.com/css2?family=Yomogi&display=swap');
+	/* Global parameters */
+	::-webkit-scrollbar { width: 0; height: 0; background: #0000 }
+	::selection { background: #faec }
+	::-moz-selection { background: #faec }
+	:root {
+		--fontMain: 2.5vmin 'Noto Sans JP';
+		--fontSub: 3vmin 'Yomogi';
+		--accentColorA: #fff;
+		--accentColorB: #000;
+		--accentSubA: #fffb;
+		--accentSubB: #000b;
+		--textColor: #0000;
+	}
+	
+	/* Meta-classes */
+	.text {
+		font: inherit; color: inherit;
+		text-decoration: none;
+	}
+	.bounded {
+		overflow: hidden;
+		overscroll-behavior-x: none;
+		overscroll-behavior-y: none;
+	}
+	.nosel {
+		-webkit-touch-callout: none;
+		-webkit-user-select: none;
+		-khtml-user-select: none;
+		-moz-user-select: none;
+		-ms-user-select: none;
+		user-select: none;
+	}
+	.nil { pointer-events: none }
+	
+	/* Local objects */
+	#headerArt {
+		float: left; width: 100%; 
+		background-color: #222;
+		box-shadow: 2vmin 0 2vmin #0006;
+	}
+	#aboutMe {
+		float: left; font: var(--fontMain);
+		background: #00000015;
+		backdrop-filter: blur(1vmin);
+		width: 100%;
+	}
+	.item { margin: 5vmin 5vmin 0 5vmin }
+	
+	.themeBadge {
+		padding: 1vmin 2vmin 2vmin 2vmin;
+		border-radius: 50%;
+		position: absolute;
+	}
+	#themeDark {
+		background: #000b; color: #fff;
+		left: 1.5vmin; top: -8vmin;
+	}
+	#themeBright {
+		background: #fffb; color: #000;
+		left: 9.5vmin; top: -8vmin;
+	}
+	#titleOrAuthor {
+		background: var(--accentSubA);
+		color: var(--textColor);
+		padding: 0.5vmin 2vmin 1vmin 2vmin;
+		border-radius: 5vmin;
+		position: absolute;
+		right: 1vmin; top: -6.5vmin;
+		transform-origin: 100% 50%;
+	}
+	
+	.msgBox {
+		display: flex;
+		background: var(--accentColorA);
+		border-radius: 3vmin;
+		min-height: 10vmin;
+		width: 70%;
+	}
+	.msgLeft { float: left; transform-origin: 0 0% }
+	.msgRight { float: right; transform-origin: 100% 0% }
+	.msgBoxText {
+		font: var(--fontSub);
+		color: var(--textColor);
+		float: left; max-width: 90%;
+		word-wrap: break-word;
+	}
+	.msgTextLeft { margin: 1.5% 3% 3% 0 }
+	.msgTextRight { margin: 1.5% 3% 3% 6% }
+	.msgBoxTop {
+		background: var(--accentColorA);
+		clip-path: polygon(
+			0 0, 100% 0,
+			53% 30%, 53% 100%,
+			47% 100%, 47% 30%);
+		width: 5vmin; height: 8vmin;
+	}
+	.msgTopLeft {
+		float: left;
+		transform: translateX(-30%)
+	}
+	.msgTopRight {
+		position: absolute; right: 0;
+		transform: translateX(30%);
+	}
+	.msgGalleryEntry {
+		background-color: var(--accentSubB);
+		background-size: cover;
+		background-position: center;
+		background-repeat: no-repeat;
+		min-width: 31.5%; height: 27vmin;
+		margin: 1% 0.5%; float: left;
+		border: 1px solid var(--accentColorB);
+		border-radius: 2vmin;
+	}
+	
+	/* Desktop version */
+	@media screen and (min-width: 550px) {
+		#core {
+			width: 798px; height: 96vh;
+			background-color: #000;
+			background-image: url('https://pbs.twimg.com/media/E77uLkDUUAQQQ_w?format=jpg&name=medium');
+			background-size: cover;
+			background-position: center;
+			background-repeat: no-repeat;
+			overflow-y: scroll; margin: 2vh 0 0 0;
+			border-radius: 5vmin;
+			box-sizing: border-box;
+			border: 1px solid var(--accentColorB);
+		}
+		.msgGallery {
+			width: 440px; display: flex;
+			justify-content: center;
+			border-radius: 3vmin;
+			margin: 2vmin 0 2vmin 0;
+			flex-wrap: wrap;
+		}
+	}
+	/* Mobile version */
+	@media screen and (max-width: 550px) {
+		#core {
+			width: 375px; height: 96vh;
+			background-color: #000;
+			background-image: url('https://pbs.twimg.com/media/E77uLkDUUAQQQ_w?format=jpg&name=medium');
+			background-size: cover;
+			background-position: center;
+			background-repeat: no-repeat;
+			overflow-y: scroll; margin: 2vh 0 0 0;
+			border-radius: 5vmin;
+			box-sizing: border-box;
+			border: 1px solid var(--accentColorB);
+		}
+		.msgGallery {
+			width: 210px; display: flex;
+			justify-content: center;
+			border-radius: 3vmin;
+			margin: 2vmin 0 2vmin 0;
+			flex-wrap: wrap;
+		}
+	}
+	
+	/* Animations */
+	@keyframes themeW {
+		0%{ background: #000 }
+		100%{ background: #fff }
+	}
+	@keyframes themeB {
+		0%{ background: #fff }
+		100%{ background: #000 }
+	}
+	@keyframes slideInR { 0% { transform: scaleX(0) } }
+	@keyframes slideInL { 0% { width: 0 } }
+	@keyframes slideOutR { 100% { transform: scaleX(0) } }
+	@keyframes slideOutL { 100% { width: 0 } }
+	@keyframes expand { 0%{ transform: scale(0) } }
+	@keyframes shrink { 100%{ transform: scale(0) } }
+	
+	/* ... Decorative objects ... */
+	body {
+		width: 100vw; height: 100vh;
+		background: #eee;
+		display: flex; margin: 0;
+		justify-content: center;
+	}
+	#showcase {
+		font: var(--fontSub);
+		background: #86a;
+		position: absolute;
+		top: 1vmin; right: 1vmin;
+		width: 60vmin; height: 60vmin;
+		border-radius: 5vmin;
+		transform: scale(0.15);
+		transform-origin: 100% 0%;
+		transition: 0.3s linear;
+	}
+	#showcase:hover { transform: scale(1) }
+	.sc_title {
+		display: block; float: left;
+		width: 90%; height: 16%;
+		color: #fff; margin-left: 5%;
+		font-size: 7vmin; text-align: center
+	}
+	.sc_inp {
+		all: unset;
+		display: block; float: left;
+		width: 100%; height: 10%;
+		background: #0007; color: #fff;
+		font-size: 4vmin; text-align: center
+	}
+	.sc_btn {
+		display: inline; float: left;
+		background: #0007; color: #fff;
+		padding: 2vmin 0; width: 50%;
+		font-size: 3vmin; text-align: center
+	}
+</style>
+
+<!-- DuskPearlScript.js -->
+<script>
+	// [i] Function templates are designed by @eimirein [i]
+	
+	// Erase all internal data of an element
+	function wipe(id) {
+		if ( document.getElementById(id) ) {
+			document.getElementById(id).innerHTML = ''
+		} else { print('['+time()+'] wipe :: Element with id <'+id+'> does not exist') }
+	}
+	// Remove one or multiple elements
+	function rm(...ids) {
+		ids.forEach(function(id) {
+			if ( document.getElementById(id) ) {
+				document.getElementById(id).remove()
+			} else { print('['+time()+'] rm :: Element with id <'+id+'> does not exist') }
+		})
+	}
+	// Make one or multiple elements/write data within a specific root body
+	function mk(root_id, html_or_array) {
+		root = document.getElementById(root_id)
+		if ( root ) {
+			if ( typeof html_or_array === 'object' ) {
+				for (var index in html_or_array) {
+					root.innerHTML = root.innerHTML + html_or_array[index]
+				}
+			} else { root.innerHTML = root.innerHTML + html_or_array }
+		} else { print('['+time()+'] mk :: Root element with id <'+root_id+'> does not exist') }
+	}
+	// Set/change a global CSS variable
+	function pattern(CSSVar, val) { document.documentElement.style.setProperty(CSSVar, val) }
+	// Animate an element, optionally add a second animation and set an interval
+	function a8(id, animation, a8opt, int_opt) {
+		var a8em = document.getElementById(id)
+		if ( a8em ) {
+			if ( !a8opt && !int_opt ) { a8em.style.animation = animation }
+			else {
+				setInterval( function() { a8em.style.animation = animation }, int_opt )
+				setInterval( function() { a8em.style.animation = a8opt }, int_opt*2 )
+			}
+		} else { print('['+time()+'] a8 :: Element with id <'+id+'> does not exist') }
+	}
+	
+	// Themes(?)
+	document.getElementById('themeDark').onmouseover = function() {
+		pattern('--accentColorA', '#000')
+		pattern('--accentColorB', '#fff')
+		pattern('--accentSubA', '#000b')
+		pattern('--accentSubB', '#fffb')
+		pattern('--textColor', '#fff')
+	}
+	document.getElementById('themeBright').onmouseover = function() {
+		pattern('--accentColorA', '#fff')
+		pattern('--accentColorB', '#000')
+		pattern('--accentSubA', '#fffb')
+		pattern('--accentSubB', '#000b')
+		pattern('--textColor', '#000')
+	}
+	// Active animations
+	document.getElementById('body').onload = function() {
+		setTimeout(function(){ pattern('--textColor', '#000') }, 1000)
+		a8('themeDark', 'shrink linear 0.2s forwards')
+		a8('themeBright', 'shrink linear 0.2s forwards')
+		a8('msgBox1', 'expand linear 0.8s forwards')
+		a8('msgBox2', 'expand linear 0.8s forwards')
+		a8('titleOrAuthor', 'slideOutR ease-in 0.2s forwards')
+	}
+	document.getElementById('core').onmouseover = function() {
+		a8('themeDark', 'expand linear 0.2s forwards')
+		a8('themeBright', 'expand linear 0.2s forwards')
+		a8('titleOrAuthor', 'slideInR ease-in 0.3s forwards')
+	}
+	document.getElementById('core').onmouseout = function() {
+		a8('themeDark', 'shrink linear 0.2s forwards')
+		a8('themeBright', 'shrink linear 0.2s forwards')
+		a8('titleOrAuthor', 'slideOutR ease-in 0.3s forwards')
+	}
+	
+	// Decorative: Showcase/debug functions
+	document.getElementById('sc_em3').onclick = function() {
+		wipe('titleOrAuthor'); wipe('userIntro');
+		mk('titleOrAuthor', document.getElementById('sc_em1').value);
+		mk('userIntro', document.getElementById('sc_em2').value)
+	}
+	document.getElementById('sc_em6').onclick = function() {
+		mk('galleryA', `<a class='msgGalleryEntry'
+			style="background-image: url(`+ document.getElementById('sc_em4').value +`)"
+			href=`+ document.getElementById('sc_em5').value +`></a>`)
+	}
+	document.getElementById('sc_em7').onclick = function() {
+		mk('galleryB', `<a class='msgGalleryEntry'
+			style="background-image: url(`+ document.getElementById('sc_em4').value +`)"
+			href=`+ document.getElementById('sc_em5').value +`></a>`)
+	}
+	
+	a8('body', 'themeB linear 3s forwards', 'themeW linear 3s forwards', 10000)
+</script>
+</html>
