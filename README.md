@@ -9,5 +9,6 @@ Technical notes:
 7. 🐦 Image is embedded from Twitter;
 8. 💖 Initial image is recommended to be used by default;
 9. ♾ Dynamic components like entries in ranking lists are not limited by amount;
+10. 🖌 All components are coded, you could replace them with svg(s) if needed;
 
 ... To Be Continued ... 🐾💤
