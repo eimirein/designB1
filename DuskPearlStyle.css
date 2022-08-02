@@ -40,10 +40,11 @@
 		box-shadow: 2vmin 0 2vmin #0006;
 	}
 	#aboutMe {
+		all: unset;
 		float: left; font: var(--fontSub);
 		background: #00000015;
 		backdrop-filter: blur(1vmin);
-		width: calc(100%-1px);
+		width: 100%;
 	}
 	
 	.item { margin: 5vmin 5vmin 0 5vmin }
