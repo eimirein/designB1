@@ -37,49 +37,25 @@
 	}
 	// Set/change a global CSS variable
 	function pattern(CSSVar, val) { document.documentElement.style.setProperty(CSSVar, val) }
-	// Animate an element, optionally add a second animation and set an interval
-	function a8(id, animation, a8opt, int_opt) {
-		var a8em = document.getElementById(id)
-		if ( a8em ) {
-			if ( !a8opt && !int_opt ) { a8em.style.animation = animation }
-			else {
-				setInterval( function() { a8em.style.animation = animation }, int_opt )
-				setInterval( function() { a8em.style.animation = a8opt }, int_opt*2 )
-			}
-		} else { print('['+time()+'] a8 :: Element with id <'+id+'> does not exist') }
-	}
 	
 	// Themes(?)
 	document.getElementById('themeDark').onmouseover = function() {
-		pattern('--backgroundColor', '#000')
-		pattern('--accentColor', '#fff')
+		pattern('--accentColor', '#000')
 		pattern('--textColor', '#fff')
 	}
 	document.getElementById('themeBright').onmouseover = function() {
-		pattern('--backgroundColor', '#fff')
-		pattern('--accentColor', '#000')
+		pattern('--accentColor', '#fff')
 		pattern('--textColor', '#000')
 	}
-	// Active animations
-	document.getElementById('body').onload = function() {
-		setTimeout(function(){ pattern('--textColor', '#000') }, 1000)
-		a8('themeDark', 'shrink linear 0.2s forwards')
-		a8('themeBright', 'shrink linear 0.2s forwards')
-		a8('msgBox1', 'expand linear 0.8s forwards')
-		a8('msgBox2', 'showUp ease-in 0.8s forwards')
-		a8('msgBox3', 'showUp ease-in 1s forwards')
-		a8('msgBox4', 'expand ease-in 1s forwards')
-		a8('titleOrAuthor', 'slideOutR ease-in 0.2s forwards')
-	}
+	
+	// Active style switches
 	document.getElementById('core').onmouseover = function() {
-		a8('themeDark', 'expand linear 0.2s forwards')
-		a8('themeBright', 'expand linear 0.2s forwards')
-		a8('titleOrAuthor', 'slideInR ease-in 0.3s forwards')
+		document.getElementById('themeDark').style.visibility = 'visible'
+		document.getElementById('themeBright').style.visibility = 'visible'
 	}
 	document.getElementById('core').onmouseout = function() {
-		a8('themeDark', 'shrink linear 0.2s forwards')
-		a8('themeBright', 'shrink linear 0.2s forwards')
-		a8('titleOrAuthor', 'slideOutR ease-in 0.3s forwards')
+		document.getElementById('themeDark').style.visibility = 'hidden'
+		document.getElementById('themeBright').style.visibility = 'hidden'
 	}
 	
 	// Decorative: Showcase/debug functions
@@ -104,7 +80,4 @@
 		mk('ranking3', `<div class='msgRankingEntry rankingC'
 			style="background-image: url(`+ document.getElementById('sc_em4').value +`)"></div>`)
 	}
-
-	// Decorative animations
-	a8('body', 'themeB linear 3s forwards', 'themeW linear 3s forwards', 10000)
 	

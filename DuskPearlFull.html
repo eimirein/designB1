@@ -31,6 +31,7 @@
 			
 			<!-- List: A -->
 			<div id='msgBox2' class='msgBox msgRight item'>
+				<div class='msgBoxTop msgTopRight'></div>
 				<div class='msgBoxText msgTextRight'>
 					Last completed anime :<br>
 					<div id='galleryA' class='msgGallery'>
@@ -40,18 +41,18 @@
 							href='https://myanimelist.net/anime/50265/Spy_x_Family'></a>
 					</div>
 				</div>
-				<div class='msgBoxTop msgTopRight'></div>
+				
 			</div>
 			
 			<!-- List: B -->
 			<div id='msgBox3' class='msgBox msgRight item'>
+				<div class='msgBoxTop msgTopRight'></div>
 				<div class='msgBoxText msgTextRight'>
 					Watching this season :<br>
 					<div id='galleryB' class='msgGallery'>
 						
 					</div>
 				</div>
-				<div class='msgBoxTop msgTopRight'></div>
 			</div>
 			
 			<!-- Ranking: A -->
@@ -85,7 +86,7 @@
 			</div>
 			
 			<!-- Ranking: C -->
-			<div id='msgBox5' class='msgBox msgLeft item'>
+			<div id='msgBox6' class='msgBox msgLeft item'>
 				<div class='msgBoxTop msgTopLeft'></div>
 				<div id='userIntro' class='msgBoxText msgTextLeft'>
 					以下のランキング表について説明します。
@@ -131,9 +132,8 @@
 	:root {
 		--fontMain: 3vmin 'Yomogi';
 		--fontSub: 3vmin 'Noto Sans JP'; /* optional */
-		--backgroundColor: #fff;
-		--accentColor: #000;
-		--textColor: #0000;
+		--accentColor: #fff;
+		--textColor: #000;
 	}
 	
 	/* Meta-classes */
@@ -161,33 +161,36 @@
 		float: left; width: 100%; 
 		background-color: #222;
 		box-shadow: 2vmin 0 2vmin #0006;
+		margin: 0;
 	}
 	#aboutMe {
 		float: left; font: var(--fontSub);
 		background: #00000015;
-		backdrop-filter: blur(1vmin);
-		width: 100%;
+		backdrop-filter: blur(6px);
+		width: 100%; margin: 0;
 	}
 	
 	.item { margin: 5vmin 5vmin 0 5vmin }
 	.themeBadge {
+		visibility: hidden;
 		padding: 1vmin 2vmin 2vmin 2vmin;
 		border-radius: 50%;
 		position: absolute;
+		transition: 0.1s linear
 	}
+	.themeBadge:hover { animation: borderPinkBlue linear 2s infinite, shadowPinkBlue linear 2s infinite }
 	#themeDark {
-		background: var(--accentColor);
-		color: var(--backgroundColor);
-		left: 1.5vmin; top: -8vmin
+		background: #000; color: #fff;
+		left: 1.5vmin; top: -9vmin
 	}
 	#themeBright {
-		background: var(--backgroundColor);
-		color: var(--accentColor);
-		left: 9.5vmin; top: -8vmin;
+		background: #fff; color: #000;
+		left: 10vmin; top: -9vmin;
 	}
 	#titleOrAuthor {
+		animation: slideOutR ease-in 0.3s forwards;
 		font-size: 2.5vmin;
-		background: var(--backgroundColor);
+		background: var(--accentColor);
 		color: var(--textColor);
 		padding: 0.5vmin 2vmin 1vmin 2vmin;
 		border-radius: 5vmin;
@@ -195,69 +198,75 @@
 		right: 1vmin; top: -6.5vmin;
 		transform-origin: 100% 50%;
 	}
+	#core:hover #titleOrAuthor { animation: slideInR ease-in 0.3s forwards }
 	
+	.msg_onLoad { animation: expand linear 0.3s forwards }
 	.msgBox {
-		display: flex;
-		background: var(--backgroundColor);
+		background: var(--accentColor);
 		border-radius: 3vmin;
 		min-height: 10vmin;
 		width: 70%;
+		transition: 0.1s linear
 	}
+	.msgBox:hover { animation: shadowPinkBlue linear 2s infinite }
 	.msgLeft { float: left; transform-origin: 0 0% }
 	.msgRight { float: right; transform-origin: 100% 0% }
 	.msgBoxText {
 		font: var(--fontMain);
 		color: var(--textColor);
-		float: left; max-width: 90%;
+		float: left; max-width: 86%;
 		word-wrap: break-word;
+		display: flex; flex-wrap: wrap;
 	}
 	.msgTextLeft { margin: 1.5% 3% 3% 0 }
 	.msgTextRight { margin: 1.5% 3% 3% 6% }
 	.msgBoxTop {
-		background: var(--backgroundColor);
-		clip-path: polygon(
-			0 0, 100% 0,
-			53% 30%, 53% 100%,
-			47% 100%, 47% 30%);
-		width: 5vmin; height: 8vmin;
+		background: var(--accentColor);
+		/* Clip: triangle pointing down */
+		clip-path: polygon(0 0, 50% 100%, 100% 0);
+		min-width: 8%; max-width: 8%;
+		min-height: 3vmin; max-height: 3vmin;
+		position: sticky;
 	}
 	.msgTopLeft {
 		float: left;
-		transform: translateX(-30%)
+		transform: translateX(-40%)
 	}
 	.msgTopRight {
-		position: absolute; right: 0;
-		transform: translateX(-70%);
+		float: right;
+		transform: translateX(40%)
 	}
 	
 	.msgGalleryEntry {
-		background-color: var(--accentColor);
+		background-color: #777;
 		background-size: cover;
 		background-position: center;
 		background-repeat: no-repeat;
-		min-width: 31.5%; height: 27vmin;
-		margin: 1% 0.5%; float: left;
-		border: 1px solid var(--accentColor);
+		min-width: 30%; height: 25vmin;
+		margin: 1% 1%; float: left;
 		border-radius: 2vmin;
+		transition: 0.1s linear
 	}
+	.msgGalleryEntry:hover { animation: borderPinkBlue linear 2s infinite }
 	.msgRanking {
 		background: #000a;
-		color: var(--backgroundColor);
+		color: var(--accentColor);
 		float: left; margin-top: 5%;
 		width: 100%; display: flex;
 		justify-content: center;
 		flex-wrap: wrap;
 		padding-bottom: 10px
 	}
-	.msgRankingTitle { width: 100%; color: #fff; margin: 0; text-align: center }
+	.msgRankingTitle { width: 100%; color: #fff; margin: 1% 0; text-align: center }
 	.msgRankingEntry {
-		background-color: var(--accentColor);
+		background-color: #777;
 		background-size: cover;
 		background-position: center;
 		background-repeat: no-repeat;
-		margin: 1% 0.5%; float: left;
-		border: 1px solid var(--accentColor);
+		margin: 1% 2%; float: left;
+		transition: 0.1s linear
 	}
+	.msgRankingEntry:hover { animation: borderPinkBlue linear 2s infinite }
 	.rankingA {
 		width: 15vmin; height: 15vmin;
 		border-radius: 50%
@@ -283,10 +292,9 @@
 			margin: 2vh 0 2vh 0;
 			border-radius: 5vmin;
 			box-sizing: border-box;
-			border: 1px solid var(--accentColor);
 		}
 		.msgGallery {
-			width: 440px; display: flex;
+			width: 480px; display: flex;
 			justify-content: center;
 			border-radius: 3vmin;
 			margin: 2vmin 0 2vmin 0;
@@ -305,7 +313,6 @@
 			margin: 2vh 0 2vh 0;
 			border-radius: 5vmin;
 			box-sizing: border-box;
-			border: 1px solid var(--accentColor);
 		}
 		.msgGallery {
 			width: 210px; display: flex;
@@ -332,6 +339,34 @@
 	@keyframes expand { 0%{ transform: scale(0) } }
 	@keyframes shrink { 100%{ transform: scale(0) } }
 	@keyframes showUp { 0%{ opacity: 0 } }
+	@keyframes hueshift {
+		0%{ filter: hue-rotate(0deg) }
+		50%{ filter: hue-rotate(-90deg) }
+		100%{ filter: hue-rotate(0deg) }
+	}
+	@keyframes borderPinkBlue {
+		0% { border: 3px solid #f9c }
+		50% { border: 3px solid #9cf }
+		100% { border: 3px solid #f9c }
+	}
+	@keyframes shadowPinkBlue {
+		0% 100% {
+			text-shadow: 1px -1px #f9c;
+			box-shadow: 3px -12px #f9c
+		}
+		25% {
+			text-shadow: 1px 1px #9cf;
+			box-shadow: 9px 3px #9cf
+		}
+		50% {
+			text-shadow: 3px 0px #f9c;
+			box-shadow: 3px 6px #f9c
+		}
+		75% {
+			text-shadow: -2px 1px #9cf;
+			box-shadow: 9px -3px #9cf
+		}
+	}
 	
 	/* ... Decorative objects ... */
 	body {
@@ -414,49 +449,25 @@
 	}
 	// Set/change a global CSS variable
 	function pattern(CSSVar, val) { document.documentElement.style.setProperty(CSSVar, val) }
-	// Animate an element, optionally add a second animation and set an interval
-	function a8(id, animation, a8opt, int_opt) {
-		var a8em = document.getElementById(id)
-		if ( a8em ) {
-			if ( !a8opt && !int_opt ) { a8em.style.animation = animation }
-			else {
-				setInterval( function() { a8em.style.animation = animation }, int_opt )
-				setInterval( function() { a8em.style.animation = a8opt }, int_opt*2 )
-			}
-		} else { print('['+time()+'] a8 :: Element with id <'+id+'> does not exist') }
-	}
 	
 	// Themes(?)
 	document.getElementById('themeDark').onmouseover = function() {
-		pattern('--backgroundColor', '#000')
-		pattern('--accentColor', '#fff')
+		pattern('--accentColor', '#000')
 		pattern('--textColor', '#fff')
 	}
 	document.getElementById('themeBright').onmouseover = function() {
-		pattern('--backgroundColor', '#fff')
-		pattern('--accentColor', '#000')
+		pattern('--accentColor', '#fff')
 		pattern('--textColor', '#000')
 	}
-	// Active animations
-	document.getElementById('body').onload = function() {
-		setTimeout(function(){ pattern('--textColor', '#000') }, 1000)
-		a8('themeDark', 'shrink linear 0.2s forwards')
-		a8('themeBright', 'shrink linear 0.2s forwards')
-		a8('msgBox1', 'expand linear 0.8s forwards')
-		a8('msgBox2', 'showUp ease-in 0.8s forwards')
-		a8('msgBox3', 'showUp ease-in 1s forwards')
-		a8('msgBox4', 'expand ease-in 1s forwards')
-		a8('titleOrAuthor', 'slideOutR ease-in 0.2s forwards')
-	}
+	
+	// Active style switches
 	document.getElementById('core').onmouseover = function() {
-		a8('themeDark', 'expand linear 0.2s forwards')
-		a8('themeBright', 'expand linear 0.2s forwards')
-		a8('titleOrAuthor', 'slideInR ease-in 0.3s forwards')
+		document.getElementById('themeDark').style.visibility = 'visible'
+		document.getElementById('themeBright').style.visibility = 'visible'
 	}
 	document.getElementById('core').onmouseout = function() {
-		a8('themeDark', 'shrink linear 0.2s forwards')
-		a8('themeBright', 'shrink linear 0.2s forwards')
-		a8('titleOrAuthor', 'slideOutR ease-in 0.3s forwards')
+		document.getElementById('themeDark').style.visibility = 'hidden'
+		document.getElementById('themeBright').style.visibility = 'hidden'
 	}
 	
 	// Decorative: Showcase/debug functions
@@ -481,8 +492,5 @@
 		mk('ranking3', `<div class='msgRankingEntry rankingC'
 			style="background-image: url(`+ document.getElementById('sc_em4').value +`)"></div>`)
 	}
-
-	// Decorative animations
-	a8('body', 'themeB linear 3s forwards', 'themeW linear 3s forwards', 10000)
 </script>
 </html>
