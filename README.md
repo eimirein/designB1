@@ -12,8 +12,8 @@ Technical notes:
 10. 🧩 All components are coded, you could replace them with svg(s) if needed;
 
 ... To Be Continued ... 🐾💤
-
-#Changelog [2022.08.03]
+# Changelog
+2022.08.03
 - hover animation is now 50% more ✨splendacious✨
 - header image is now clickable
 - added a cool brightness controller
