@@ -11,7 +11,7 @@ Technical notes:
 5. ❓ I mostly used 'vmin' css unit, therefore convert it to 'px' or any other unit if needed;
 6. 👁‍🗨 It also has decorative, debug, optional and global components, consider sorting them out;
 7. 🐦 Main image is embedded from Twitter;
-8. 💖 Initial image is recommended to be used by default;
+8. 💖 Initial main image and Title is recommended to be used by default;
 9. 🌪 Dynamic components like entries in ranking lists are not limited by amount;
 10. 🧩 All components are coded, you could replace them with svg(s) if needed;
 
