@@ -29,6 +29,8 @@
 		-moz-user-select: none;
 		-ms-user-select: none;
 		user-select: none;
+		user-drag: none; 
+		-webkit-user-drag: none;
 	}
 	.nil { pointer-events: none }
 	
@@ -102,7 +104,7 @@
 		clip-path: polygon(0 0, 50% 100%, 100% 0);
 		min-width: 8%; max-width: 8%;
 		min-height: 3vmin; max-height: 3vmin;
-		position: sticky;
+		position: sticky
 	}
 	.msgTopLeft {
 		float: left;
@@ -123,7 +125,7 @@
 		border-radius: 2vmin;
 		transition: 0.1s linear
 	}
-	.msgGalleryEntry:hover { animation: borderPinkBlue linear 2s infinite }
+	.msgGalleryEntry:hover { animation: borderPinkBlue linear 1s infinite }
 	.msgRanking {
 		background: #000a;
 		color: var(--accentColor);
@@ -142,7 +144,7 @@
 		margin: 1% 2%; float: left;
 		transition: 0.1s linear
 	}
-	.msgRankingEntry:hover { animation: borderPinkBlue linear 2s infinite }
+	.msgRankingEntry:hover { animation: borderPinkBlue linear 1s infinite }
 	.rankingA {
 		width: 15vmin; height: 15vmin;
 		border-radius: 50%
@@ -199,6 +201,22 @@
 		}
 	}
 	
+	/* Optional components */
+	#brightnessCtrl {
+		visibility: hidden;
+		background: #0005;
+		width: 6vmin; height: 6vmin;
+		border-radius: 50%;
+		position: absolute;
+		right: 1vmin; top: -14vmin;
+		transition: 0.3s linear
+	}
+	#brightnessCtrl:hover {
+		width: 30vmin; height: 30vmin; top: -40vmin;
+		background: radial-gradient(#fffa, #000a);
+		animation: borderPinkBlue linear 2s infinite
+	}
+	
 	/* Animations */
 	@keyframes themeW {
 		0%{ background: #000 }
@@ -226,21 +244,21 @@
 		100% { border: 3px solid #f9c }
 	}
 	@keyframes shadowPinkBlue {
-		0% 100% {
-			text-shadow: 1px -1px #f9c;
-			box-shadow: 3px -12px #f9c
+		0%, 100% {
+			text-shadow: 0px 0px #f9c;
+			box-shadow: 0px 0px #f9c
 		}
 		25% {
-			text-shadow: 1px 1px #9cf;
-			box-shadow: 9px 3px #9cf
+			text-shadow: 2px 1px #9cf;
+			box-shadow: 7px 1px #9cf
 		}
 		50% {
-			text-shadow: 3px 0px #f9c;
-			box-shadow: 3px 6px #f9c
+			text-shadow: 0px -2px #f9c;
+			box-shadow: 1px -4px #f9c
 		}
 		75% {
-			text-shadow: -2px 1px #9cf;
-			box-shadow: 9px -3px #9cf
+			text-shadow: -2px 1px #c9f;
+			box-shadow: -3px 6px #c9f
 		}
 	}
 	

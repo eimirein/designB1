@@ -1,18 +1,20 @@
 <!DOCTYPE html> <html>
-<!-- Yes, this is just a whole bundle -->
 <body id='body'>
 	<link rel="stylesheet" href="DuskPearlStyle.css">
 	
 	<!-- Design structure -->
 	<div id='core' class='bounded'>
 		<!-- Custom image section -->
-		<img id='headerArt' class='nosel nil' src='https://pbs.twimg.com/media/E77uLkDUUAQQQ_w?format=jpg&name=medium'>
+		<img id='headerArt' class='nosel' src='https://pbs.twimg.com/media/E77uLkDUUAQQQ_w?format=jpg&name=medium'>
 		<!-- About Me content section -->
 		<div id='aboutMe'>
 			
 			<!-- Two buttons on the bottom left of the [#headerArt] -->
 			<div id='themeDark' class='themeBadge nosel'>あ</div>
 			<div id='themeBright' class='themeBadge nosel'>あ</div>
+			
+			<!-- (optional) Brightness controller on [#headerArt] -->
+			<div id='brightnessCtrl'></div>
 			
 			<!-- User message: Title -->
 			<div id='titleOrAuthor' class='nosel nil'>Artwork by: Aちき (@atikix)</div>
@@ -154,6 +156,8 @@
 		-moz-user-select: none;
 		-ms-user-select: none;
 		user-select: none;
+		user-drag: none; 
+		-webkit-user-drag: none;
 	}
 	.nil { pointer-events: none }
 	
@@ -227,7 +231,7 @@
 		clip-path: polygon(0 0, 50% 100%, 100% 0);
 		min-width: 8%; max-width: 8%;
 		min-height: 3vmin; max-height: 3vmin;
-		position: sticky;
+		position: sticky
 	}
 	.msgTopLeft {
 		float: left;
@@ -248,7 +252,7 @@
 		border-radius: 2vmin;
 		transition: 0.1s linear
 	}
-	.msgGalleryEntry:hover { animation: borderPinkBlue linear 2s infinite }
+	.msgGalleryEntry:hover { animation: borderPinkBlue linear 1s infinite }
 	.msgRanking {
 		background: #000a;
 		color: var(--accentColor);
@@ -267,7 +271,7 @@
 		margin: 1% 2%; float: left;
 		transition: 0.1s linear
 	}
-	.msgRankingEntry:hover { animation: borderPinkBlue linear 2s infinite }
+	.msgRankingEntry:hover { animation: borderPinkBlue linear 1s infinite }
 	.rankingA {
 		width: 15vmin; height: 15vmin;
 		border-radius: 50%
@@ -324,6 +328,22 @@
 		}
 	}
 	
+	/* Optional components */
+	#brightnessCtrl {
+		visibility: hidden;
+		background: #0005;
+		width: 6vmin; height: 6vmin;
+		border-radius: 50%;
+		position: absolute;
+		right: 1vmin; top: -14vmin;
+		transition: 0.3s linear
+	}
+	#brightnessCtrl:hover {
+		width: 30vmin; height: 30vmin; top: -40vmin;
+		background: radial-gradient(#fffa, #000a);
+		animation: borderPinkBlue linear 2s infinite
+	}
+	
 	/* Animations */
 	@keyframes themeW {
 		0%{ background: #000 }
@@ -351,21 +371,21 @@
 		100% { border: 3px solid #f9c }
 	}
 	@keyframes shadowPinkBlue {
-		0% 100% {
-			text-shadow: 1px -1px #f9c;
-			box-shadow: 3px -12px #f9c
+		0%, 100% {
+			text-shadow: 0px 0px #f9c;
+			box-shadow: 0px 0px #f9c
 		}
 		25% {
-			text-shadow: 1px 1px #9cf;
-			box-shadow: 9px 3px #9cf
+			text-shadow: 2px 1px #9cf;
+			box-shadow: 7px 1px #9cf
 		}
 		50% {
-			text-shadow: 3px 0px #f9c;
-			box-shadow: 3px 6px #f9c
+			text-shadow: 0px -2px #f9c;
+			box-shadow: 1px -4px #f9c
 		}
 		75% {
-			text-shadow: -2px 1px #9cf;
-			box-shadow: 9px -3px #9cf
+			text-shadow: -2px 1px #c9f;
+			box-shadow: -3px 6px #c9f
 		}
 	}
 	
@@ -450,6 +470,30 @@
 	}
 	// Set/change a global CSS variable
 	function pattern(CSSVar, val) { document.documentElement.style.setProperty(CSSVar, val) }
+	// Track a mouse X/Y position relative to element's boundBox or radius >> [id.mx/id.my/id.mr]
+	// document.getElementById(___).addEventListener("mousemove", track, false)
+	function track(event) {
+		var boundBox = event.target.getBoundingClientRect();
+		var x1 = event.clientX - boundBox.left;
+		var x2 = event.clientX - boundBox.right;
+		var y1 = event.clientY - boundBox.top;
+		var y2 = event.clientY - boundBox.bottom;
+		let min = 0, max = 100
+		var id = event.target.id
+		document.getElementById(id).mx =
+			Math.max( min, Math.min( max, Math.round( max * Math.abs(x1 / boundBox.width) ) ) )
+		document.getElementById(id).my =
+			Math.max( min, Math.min( max, Math.round( max * Math.abs(y2 / boundBox.height) ) ) )
+		document.getElementById(id).mr =
+			Math.max( // Knowing no math? Let's draw diagonals!
+				Math.max( min, Math.min( max, Math.round( max * Math.abs(x1 / boundBox.width) )-50 )*2 ),
+				Math.max( min, Math.min( max, Math.round( max * Math.abs(x2 / boundBox.width) )-50 )*2 ),
+				Math.max( min, Math.min( max, Math.round( max * Math.abs(y1 / boundBox.height) )-50 )*2 ),
+				Math.max( min, Math.min( max, Math.round( max * Math.abs(y2 / boundBox.height) )-50 )*2 ),
+				Math.max( min, Math.min( max, Math.round( max * Math.abs( (x1-y1)*1.41 / boundBox.width) ) ) ),
+				Math.max( min, Math.min( max, Math.round( max * Math.abs( (x1+y2)*1.41 / boundBox.width) ) ) )
+			)
+	}
 	
 	// Themes(?)
 	document.getElementById('themeDark').onmouseover = function() {
@@ -461,14 +505,23 @@
 		pattern('--textColor', '#000')
 	}
 	
-	// Active style switches
+	// Active style switches (may include optional components)
 	document.getElementById('core').onmouseover = function() {
 		document.getElementById('themeDark').style.visibility = 'visible'
 		document.getElementById('themeBright').style.visibility = 'visible'
+		document.getElementById('brightnessCtrl').style.visibility = 'visible'
 	}
 	document.getElementById('core').onmouseout = function() {
 		document.getElementById('themeDark').style.visibility = 'hidden'
 		document.getElementById('themeBright').style.visibility = 'hidden'
+		document.getElementById('brightnessCtrl').style.visibility = 'hidden'
+	}
+	
+	// Functions for optional components
+	document.getElementById('brightnessCtrl').addEventListener("mousemove", track, false)
+	document.getElementById('brightnessCtrl').onclick = function() {
+		document.getElementById('aboutMe').style.background =
+			'#000000'+(10+Math.round(document.getElementById('brightnessCtrl').mr*0.89))
 	}
 	
 	// Decorative: Showcase/debug functions
