@@ -1,27 +1,28 @@
 	// [i] Function templates are designed by @eimirein [i]
 	
-	function time() {
-		var get_time = new Date()
-		var hour = get_time.getHours()
-		var min = get_time.getMinutes()
-		var sec = get_time.getSeconds()
-		if (hour.toString().length==1) {hour = '0'+hour}
-		if (min.toString().length==1) {min = '0'+min}
-		if (sec.toString().length==1) {sec = '0'+sec}
-		return hour+":"+min+':'+sec
+	// Animate an element, optionally add a second animation and set an interval
+	function a8(id, animation, a8opt, int_opt) {
+		var a8em = document.getElementById(id)
+		if ( a8em ) {
+			if ( !a8opt && !int_opt ) { a8em.style.animation = animation }
+			else {
+				setInterval( function() { a8em.style.animation = animation }, int_opt )
+				setInterval( function() { a8em.style.animation = a8opt }, int_opt*2 )
+			}
+		}
 	}
 	// Erase all internal data of an element
 	function wipe(id) {
 		if ( document.getElementById(id) ) {
 			document.getElementById(id).innerHTML = ''
-		} else { print('['+time()+'] wipe :: Element with id <'+id+'> does not exist') }
+		}
 	}
 	// Remove one or multiple elements
 	function rm(...ids) {
 		ids.forEach(function(id) {
 			if ( document.getElementById(id) ) {
 				document.getElementById(id).remove()
-			} else { print('['+time()+'] rm :: Element with id <'+id+'> does not exist') }
+			}
 		})
 	}
 	// Make one or multiple elements/write data within a specific root body
@@ -33,7 +34,7 @@
 					root.innerHTML = root.innerHTML + html_or_array[index]
 				}
 			} else { root.innerHTML = root.innerHTML + html_or_array }
-		} else { print('['+time()+'] mk :: Root element with id <'+root_id+'> does not exist') }
+		}
 	}
 	// Set/change a global CSS variable
 	function pattern(CSSVar, val) { document.documentElement.style.setProperty(CSSVar, val) }
@@ -84,7 +85,16 @@
 		document.getElementById('brightnessCtrl').style.visibility = 'hidden'
 	}
 	
-	// Functions for optional components
+	// Optional functions
+	document.getElementById('headerArt').onclick = function() {
+		if (!document.getElementById('headerArt').value || document.getElementById('headerArt').value === 'false') {
+			document.getElementById('headerArt').value = 'true'
+			a8('core', 'spanIn linear 0.3s forwards')
+		} else if (document.getElementById('headerArt').value === 'true') {
+			document.getElementById('headerArt').value = 'false'
+			a8('core', 'spanOut linear 0.3s forwards')
+		}
+	}
 	document.getElementById('brightnessCtrl').addEventListener("mousemove", track, false)
 	document.getElementById('brightnessCtrl').onclick = function() {
 		document.getElementById('aboutMe').style.background =
