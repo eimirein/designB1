@@ -1,4 +1,8 @@
 # Dusk Pearl
+> Download: https://github.com/eimirein/designB1/releases/tag/v0.2
+
+> Live: https://eimirein.github.io/designB1/
+#
 Technical notes:
 1. ✅ Please read all comments for better understanding, if something is unclear - open an issue;
 2. 2️⃣ It has two fonts: main and sub. Sub font is optional but recommended;
