@@ -21,3 +21,4 @@ Technical notes:
 - hover animation is now 50% more ✨splendacious✨
 - header image is now clickable
 - added a cool brightness controller
+- entries are now expanding on tap/hold
