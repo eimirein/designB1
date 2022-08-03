@@ -5,7 +5,7 @@ Technical notes:
 3. 🎨 It has two built-in color schemes;
 4. 🖼 It has no bg color, header image is used instead;
 5. ❓ I mostly used 'vmin' css unit, therefore convert it to 'px' or any other unit if needed;
-6. 👁‍🗨 It has decorative (optional), debug and global components;
+6. 👁‍🗨 It also has decorative, debug, optional and global components, consider sorting them out;
 7. 🐦 Main image is embedded from Twitter;
 8. 💖 Initial image is recommended to be used by default;
 9. 🌪 Dynamic components like entries in ranking lists are not limited by amount;
@@ -15,5 +15,5 @@ Technical notes:
 # Changelog
 2022.08.03
 - hover animation is now 50% more ✨splendacious✨
-- ~~header image is now clickable~~
+- header image is now clickable
 - added a cool brightness controller
