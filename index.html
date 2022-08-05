@@ -1,6 +1,7 @@
 <!DOCTYPE html> <html>
 <body id='body'>
 	<link rel="stylesheet" href="DuskPearlStyle.css">
+	<div id='bgimg'></div>
 	
 	<!-- Design structure -->
 	<div id='core' class='bounded'>
@@ -123,4 +124,449 @@
 	
 	<script type="text/javascript" src="DuskPearlScript.js"></script>
 </body>
+
+<!-- DuskPearlStyle.css -->
+<style>
+	@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100&display=swap');
+	@import url('https://fonts.googleapis.com/css2?family=Yomogi&display=swap');
+	/* Global parameters */
+	::-webkit-scrollbar { width: 0; height: 0; background: #0000 }
+	::selection { background: #faec }
+	::-moz-selection { background: #faec }
+	/* Essential global parameters */
+	:root {
+		--fontMain: 2.3vmin 'Yomogi';
+		--fontSub: 2.3vmin 'Noto Sans JP'; /* optional */
+		--accentColor: #fff;
+		--textColor: #000;
+	}
+	
+	/* Meta-classes */
+	.text {
+		font: inherit; color: inherit;
+		text-decoration: none;
+	}
+	.bounded {
+		overflow: hidden;
+		overscroll-behavior-x: none;
+		overscroll-behavior-y: none;
+	}
+	.nosel {
+		-webkit-touch-callout: none;
+		-webkit-user-select: none;
+		-khtml-user-select: none;
+		-moz-user-select: none;
+		-ms-user-select: none;
+		user-select: none;
+		user-drag: none; 
+		-webkit-user-drag: none;
+	}
+	.nil { pointer-events: none }
+	.break { float: left; width: 100%; height: 1px; margin: 0; display: block }
+	
+	/* Local objects */
+	#headerArt {
+		float: left; width: 100%; 
+		background-color: #222;
+		box-shadow: 2vmin 0 2vmin #0006;
+		margin: 0;
+	}
+	#aboutMe {
+		float: left; font: var(--fontSub);
+		background: #00000015;
+		backdrop-filter: blur(6px);
+		width: 100%; margin: 0;
+	}
+	
+	.item { margin: 5vmin 5vmin 0 5vmin }
+	.themeBadge {
+		visibility: hidden;
+		padding: 1vmin 2vmin 2vmin 2vmin;
+		border-radius: 50%;
+		position: absolute;
+		transition: 0.1s linear
+	}
+	.themeBadge:hover { animation: borderPinkBlue linear 2s infinite, shadowPinkBlue linear 2s infinite }
+	#themeDark {
+		background: #000; color: #fff;
+		left: 1.5vmin; top: -9vmin
+	}
+	#themeBright {
+		background: #fff; color: #000;
+		left: 10vmin; top: -9vmin;
+	}
+	#titleOrAuthor {
+		animation: slideOut ease-in 0.3s forwards;
+		font-size: 2.5vmin;
+		background: var(--accentColor);
+		color: var(--textColor);
+		padding: 0.5vmin 2vmin 1vmin 2vmin;
+		border-radius: 5vmin;
+		position: absolute;
+		right: 1vmin; top: -6.5vmin;
+		transform-origin: 100% 50%;
+	}
+	#core:hover #titleOrAuthor { animation: slideIn ease-in 0.3s forwards }
+	
+	.msg_onLoad { animation: expand linear 0.3s forwards }
+	.msgBox {
+		background: var(--accentColor);
+		border-radius: 3vmin;
+		min-height: 10vmin;
+		width: 55%;
+		transition: 0.1s linear
+	}
+	.msgBox:hover { animation: shadowPinkBlue linear 2s infinite }
+	.msgLeft { float: left; transform-origin: 0 0% }
+	.msgRight { float: right; transform-origin: 100% 0% }
+	.msgBoxText {
+		font: var(--fontMain);
+		color: var(--textColor);
+		float: left;
+		width: 86%; max-width: 86%;
+		word-wrap: break-word;
+		display: flex; flex-wrap: wrap;
+	}
+	.msgTextLeft { margin: 1.5% 3% 3% 0 }
+	.msgTextRight { margin: 1.5% 3% 3% 6% }
+	.msgBoxTop {
+		background: var(--accentColor);
+		/* Clip: triangle pointing down */
+		clip-path: polygon(0 0, 50% 100%, 100% 0);
+		min-width: 8%; max-width: 8%;
+		min-height: 3vmin; max-height: 3vmin;
+		position: sticky
+	}
+	.msgTopLeft {
+		float: left;
+		transform: translateX(-40%)
+	}
+	.msgTopRight {
+		float: right;
+		transform: translateX(40%)
+	}
+	
+	.msgGallery {
+		width: 100%; display: flex;
+		justify-content: center;
+		border-radius: 3vmin;
+		margin: 2vmin 0 2vmin 0;
+		flex-wrap: wrap;
+	}
+	.msgGalleryEntry {
+		background-color: #777;
+		background-size: cover;
+		background-position: center;
+		background-repeat: no-repeat;
+		min-width: 28%; height: 160px;
+		margin: 1% 1%; float: left;
+		border-radius: 1.5vmin;
+		transition: 0.1s linear
+	}
+	.msgGalleryEntry:hover { animation: borderPinkBlue linear 1s infinite }
+	.msgGalleryEntry:active { animation: entrySel linear 0.15s forwards }
+	.msgRanking {
+		background: #000a;
+		color: var(--accentColor);
+		float: left; margin-top: 5%;
+		width: 100%; display: flex;
+		justify-content: center;
+		flex-wrap: wrap;
+		padding-bottom: 10px
+	}
+	.msgRankingTitle { width: 100%; color: #fff; margin: 1% 0; text-align: center }
+	.msgRankingEntry {
+		background-color: #777;
+		background-size: cover;
+		background-position: center;
+		background-repeat: no-repeat;
+		margin: 1% 2%; float: left;
+		transition: 0.1s linear
+	}
+	.msgRankingEntry:hover { animation: borderPinkBlue linear 1s infinite }
+	.msgRankingEntry:active { animation: entrySel linear 0.15s forwards }
+	.rankingA {
+		width: 100px; height: 100px;
+		border-radius: 50%
+	}
+	.rankingB {
+		min-width: 200px; height: 120px;
+		border-radius: 2vmin
+	}
+	.rankingC {
+		min-width: 110px; min-height: 160px;
+		border-radius: 2vmin
+	}
+	
+	/* Desktop version */
+	@media screen and (min-width: 550px) {
+		#core {
+			width: 798px;
+			background-color: #000;
+			background-image: url('https://pbs.twimg.com/media/E77uLkDUUAQQQ_w?format=jpg&name=medium');
+			background-size: cover;
+			background-position: center;
+			background-repeat: no-repeat;
+			margin: 5vh 0 2vh 17.85vw;
+			border-radius: 5vmin;
+			box-sizing: border-box;
+		}
+	}
+	/* Mobile version */
+	@media screen and (max-width: 550px) {
+		#core {
+			width: 375px;
+			background-color: #000;
+			background-image: url('https://pbs.twimg.com/media/E77uLkDUUAQQQ_w?format=jpg&name=medium');
+			background-size: cover;
+			background-position: center;
+			background-repeat: no-repeat;
+			margin: 2vh 0 2vh 0;
+			border-radius: 5vmin;
+			box-sizing: border-box;
+		}
+	}
+	
+	/* Optional components */
+	#brightnessCtrl {
+		visibility: hidden;
+		background: #0005;
+		width: 6vmin; height: 6vmin;
+		border-radius: 50%;
+		position: absolute;
+		right: 1vmin; top: -14vmin;
+		transition: 0.3s linear
+	}
+	#brightnessCtrl:hover {
+		width: 30vmin; height: 30vmin; top: -40vmin;
+		background: radial-gradient(#fffa, #000a);
+		animation: borderPinkBlue linear 2s infinite
+	}
+	
+	/* Animations */
+	@keyframes themeW {
+		0%{ background: #000 }
+		100%{ background: #fff }
+	}
+	@keyframes themeB {
+		0%{ background: #fff }
+		100%{ background: #000 }
+	}
+	@keyframes slideIn { 0% { transform: scaleX(0) } }
+	@keyframes slideOut { 100% { transform: scaleX(0) } }
+	@keyframes expand { 0%{ transform: scale(0) } }
+	@keyframes shrink { 100%{ transform: scale(0) } }
+	@keyframes borderPinkBlue {
+		0% { border: 3px solid #f9c }
+		50% { border: 3px solid #9cf }
+		100% { border: 3px solid #f9c }
+	}
+	@keyframes shadowPinkBlue {
+		0%, 100% {
+			text-shadow: 0px 0px #f9c;
+			box-shadow: 0px 0px #f9c
+		}
+		25% {
+			text-shadow: 2px 1px #9cf;
+			box-shadow: 7px 1px #9cf
+		}
+		50% {
+			text-shadow: 0px -2px #f9c;
+			box-shadow: 1px -4px #f9c
+		}
+		75% {
+			text-shadow: -2px 1px #c9f;
+			box-shadow: -3px 6px #c9f
+		}
+	}
+	@keyframes entrySel {
+		0% { background-color: #0000 }
+		100% {
+			background-size: contain;
+			width: 100vw; height: 100vh;
+			border-radius: 2vmin;
+			background-color: #0000
+		}
+	}
+	@keyframes spanIn { 100%{ width: 100vw; margin: 0; border-radius: 0 } }
+	@keyframes spanOut { 0%{ width: 100vw; margin: 0; border-radius: 0 } }
+	
+	/* ... Decorative objects ... */
+	#bgimg {
+		position: fixed; left: 0; top: 0;
+		width: 100vw; height: 100vh;
+		background-image: url('bgtest.png');
+		background-size: cover;
+		background-position: center;
+		background-repeat: no-repeat;
+		z-index: -2;
+	}
+	body {
+		width: 100vw;
+		background-color: #eee;
+		display: flex; margin: 0;
+		justify-content: center;
+		z-index: -3
+	}
+	#showcase {
+		font: var(--fontMain);
+		background: #86a;
+		position: fixed;
+		top: 1vmin; right: 1vmin;
+		width: 60vmin; height: 60vmin;
+		border-radius: 5vmin;
+		transform: scale(0.15);
+		transform-origin: 100% 0%;
+		transition: 0.3s linear;
+	}
+	#showcase:hover { transform: scale(1) }
+	.sc_title {
+		display: block; float: left;
+		width: 90%; height: 16%;
+		color: #fff; margin-left: 5%;
+		font-size: 7vmin; text-align: center
+	}
+	.sc_inp {
+		all: unset;
+		display: block; float: left;
+		width: 100%; height: 10%;
+		background: #0007; color: #fff;
+		font-size: 4vmin; text-align: center
+	}
+	.sc_btn {
+		display: inline; float: left;
+		background: #0007; color: #fff;
+		padding: 2vmin 0; width: 50%;
+		font-size: 3vmin; text-align: center
+	}
+</style>
+
+<!-- DuskPearlScript.js -->
+<script>
+	// [i] Function templates are designed by @eimirein [i]
+	
+	// Animate an element, optionally add a second animation and set an interval
+	function a8(id, animation, a8opt, int_opt) {
+		var a8em = document.getElementById(id)
+		if ( a8em ) {
+			if ( !a8opt && !int_opt ) { a8em.style.animation = animation }
+			else {
+				setInterval( function() { a8em.style.animation = animation }, int_opt )
+				setInterval( function() { a8em.style.animation = a8opt }, int_opt*2 )
+			}
+		}
+	}
+	// Erase all internal data of an element
+	function wipe(id) {
+		if ( document.getElementById(id) ) {
+			document.getElementById(id).innerHTML = ''
+		}
+	}
+	// Remove one or multiple elements
+	function rm(...ids) {
+		ids.forEach(function(id) {
+			if ( document.getElementById(id) ) {
+				document.getElementById(id).remove()
+			}
+		})
+	}
+	// Make one or multiple elements/write data within a specific root body
+	function mk(root_id, html_or_array) {
+		root = document.getElementById(root_id)
+		if ( root ) {
+			if ( typeof html_or_array === 'object' ) {
+				for (var index in html_or_array) {
+					root.innerHTML = root.innerHTML + html_or_array[index]
+				}
+			} else { root.innerHTML = root.innerHTML + html_or_array }
+		}
+	}
+	// Set/change a global CSS variable
+	function pattern(CSSVar, val) { document.documentElement.style.setProperty(CSSVar, val) }
+	// Track a mouse X/Y position relative to element's boundBox or radius >> [id.mx/id.my/id.mr]
+	// document.getElementById(___).addEventListener("mousemove", track, false)
+	function track(event) {
+		var boundBox = event.target.getBoundingClientRect();
+		var x1 = event.clientX - boundBox.left;
+		var x2 = event.clientX - boundBox.right;
+		var y1 = event.clientY - boundBox.top;
+		var y2 = event.clientY - boundBox.bottom;
+		let min = 0, max = 100
+		var id = event.target.id
+		document.getElementById(id).mx =
+			Math.max( min, Math.min( max, Math.round( max * Math.abs(x1 / boundBox.width) ) ) )
+		document.getElementById(id).my =
+			Math.max( min, Math.min( max, Math.round( max * Math.abs(y2 / boundBox.height) ) ) )
+		document.getElementById(id).mr =
+			Math.max( // Knowing no math? Let's draw diagonals!
+				Math.max( min, Math.min( max, Math.round( max * Math.abs(x1 / boundBox.width) )-50 )*2 ),
+				Math.max( min, Math.min( max, Math.round( max * Math.abs(x2 / boundBox.width) )-50 )*2 ),
+				Math.max( min, Math.min( max, Math.round( max * Math.abs(y1 / boundBox.height) )-50 )*2 ),
+				Math.max( min, Math.min( max, Math.round( max * Math.abs(y2 / boundBox.height) )-50 )*2 ),
+				Math.max( min, Math.min( max, Math.round( max * Math.abs( (x1-y1)*1.41 / boundBox.width) ) ) ),
+				Math.max( min, Math.min( max, Math.round( max * Math.abs( (x1+y2)*1.41 / boundBox.width) ) ) )
+			)
+	}
+	
+	// Themes(?)
+	document.getElementById('themeDark').onmouseover = function() {
+		pattern('--accentColor', '#000')
+		pattern('--textColor', '#fff')
+	}
+	document.getElementById('themeBright').onmouseover = function() {
+		pattern('--accentColor', '#fff')
+		pattern('--textColor', '#000')
+	}
+	
+	// Active style switches (may include optional components)
+	document.getElementById('core').onmouseover = function() {
+		document.getElementById('themeDark').style.visibility = 'visible'
+		document.getElementById('themeBright').style.visibility = 'visible'
+		document.getElementById('brightnessCtrl').style.visibility = 'visible'
+	}
+	document.getElementById('core').onmouseout = function() {
+		document.getElementById('themeDark').style.visibility = 'hidden'
+		document.getElementById('themeBright').style.visibility = 'hidden'
+		document.getElementById('brightnessCtrl').style.visibility = 'hidden'
+	}
+	
+	// Optional functions
+	document.getElementById('headerArt').onclick = function() {
+		if (!document.getElementById('headerArt').value || document.getElementById('headerArt').value === 'false') {
+			document.getElementById('headerArt').value = 'true'
+			a8('core', 'spanIn linear 0.3s forwards')
+		} else if (document.getElementById('headerArt').value === 'true') {
+			document.getElementById('headerArt').value = 'false'
+			a8('core', 'spanOut linear 0.3s forwards')
+		}
+	}
+	document.getElementById('brightnessCtrl').addEventListener("mousemove", track, false)
+	document.getElementById('brightnessCtrl').onclick = function() {
+		document.getElementById('aboutMe').style.background =
+			'#000000'+(10+Math.round(document.getElementById('brightnessCtrl').mr*0.89))
+	}
+	
+	// Decorative: Showcase/debug functions
+	document.getElementById('sc_em3').onclick = function() {
+		wipe('titleOrAuthor'); wipe('userIntro');
+		mk('titleOrAuthor', document.getElementById('sc_em1').value);
+		mk('userIntro', document.getElementById('sc_em2').value)
+	}
+	document.getElementById('sc_em6').onclick = function() {
+		mk('galleryA', `<a class='msgGalleryEntry'
+			style="background-image: url(`+ document.getElementById('sc_em4').value +`)"
+			href=`+ document.getElementById('sc_em5').value +`></a>`)
+		mk('galleryB', `<a class='msgGalleryEntry'
+			style="background-image: url(`+ document.getElementById('sc_em4').value +`)"
+			href=`+ document.getElementById('sc_em5').value +`></a>`)
+	}
+	document.getElementById('sc_em7').onclick = function() {
+		mk('ranking1', `<div class='msgRankingEntry rankingA'
+			style="background-image: url(`+ document.getElementById('sc_em4').value +`)"></div>`)
+		mk('ranking2', `<div class='msgRankingEntry rankingB'
+			style="background-image: url(`+ document.getElementById('sc_em4').value +`)"></div>`)
+		mk('ranking3', `<div class='msgRankingEntry rankingC'
+			style="background-image: url(`+ document.getElementById('sc_em4').value +`)"></div>`)
+	}
+</script>
 </html>
