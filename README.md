@@ -21,4 +21,6 @@ Technical notes:
 - hover animation is now 50% more ✨splendacious✨
 - header image is now clickable
 - added a cool brightness controller
-- entries are now expanding on hold
+
+2022.09.12
+- design has been revised: minor fixes
