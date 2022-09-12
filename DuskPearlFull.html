@@ -1,6 +1,7 @@
 <!DOCTYPE html> <html>
 <body id='body'>
 	<link rel="stylesheet" href="DuskPearlStyle.css">
+	<div id='bgimg'></div>
 	
 	<!-- Design structure -->
 	<div id='core' class='bounded'>
@@ -134,8 +135,8 @@
 	::-moz-selection { background: #faec }
 	/* Essential global parameters */
 	:root {
-		--fontMain: 3vmin 'Yomogi';
-		--fontSub: 3vmin 'Noto Sans JP'; /* optional */
+		--fontMain: 2.3vmin 'Yomogi';
+		--fontSub: 2.3vmin 'Noto Sans JP'; /* optional */
 		--accentColor: #fff;
 		--textColor: #000;
 	}
@@ -212,7 +213,7 @@
 		background: var(--accentColor);
 		border-radius: 3vmin;
 		min-height: 10vmin;
-		width: 70%;
+		width: 55%;
 		transition: 0.1s linear
 	}
 	.msgBox:hover { animation: shadowPinkBlue linear 2s infinite }
@@ -257,13 +258,12 @@
 		background-size: cover;
 		background-position: center;
 		background-repeat: no-repeat;
-		min-width: 30%; height: 30vmin;
+		min-width: 28%; height: 160px;
 		margin: 1% 1%; float: left;
-		border-radius: 2vmin;
+		border-radius: 1.5vmin;
 		transition: 0.1s linear
 	}
 	.msgGalleryEntry:hover { animation: borderPinkBlue linear 1s infinite }
-	.msgGalleryEntry:active { animation: entrySel linear 0.15s forwards }
 	.msgRanking {
 		background: #000a;
 		color: var(--accentColor);
@@ -283,17 +283,16 @@
 		transition: 0.1s linear
 	}
 	.msgRankingEntry:hover { animation: borderPinkBlue linear 1s infinite }
-	.msgRankingEntry:active { animation: entrySel linear 0.15s forwards }
 	.rankingA {
-		width: 15vmin; height: 15vmin;
+		width: 100px; height: 100px;
 		border-radius: 50%
 	}
 	.rankingB {
-		min-width: 28%; height: 17vmin;
+		min-width: 200px; height: 120px;
 		border-radius: 2vmin
 	}
 	.rankingC {
-		min-width: 18%; min-height: 30vmin;
+		min-width: 110px; min-height: 160px;
 		border-radius: 2vmin
 	}
 	
@@ -306,7 +305,7 @@
 			background-size: cover;
 			background-position: center;
 			background-repeat: no-repeat;
-			margin: 2vh 0 2vh 0;
+			margin: 5vh 0 2vh 17.85vw;
 			border-radius: 5vmin;
 			box-sizing: border-box;
 		}
@@ -328,7 +327,7 @@
 	
 	/* Optional components */
 	#brightnessCtrl {
-		visibility: hidden;
+		visibility: hidden; z-index: 10;
 		background: #0005;
 		width: 6vmin; height: 6vmin;
 		border-radius: 50%;
@@ -337,7 +336,7 @@
 		transition: 0.3s linear
 	}
 	#brightnessCtrl:hover {
-		width: 30vmin; height: 30vmin; top: -40vmin;
+		transform: scale(5);
 		background: radial-gradient(#fffa, #000a);
 		animation: borderPinkBlue linear 2s infinite
 	}
@@ -391,11 +390,21 @@
 	@keyframes spanOut { 0%{ width: 100vw; margin: 0; border-radius: 0 } }
 	
 	/* ... Decorative objects ... */
+	#bgimg {
+		position: fixed; left: 0; top: 0;
+		width: 100vw; height: 100vh;
+		background-image: url('bgtest.png');
+		background-size: cover;
+		background-position: center;
+		background-repeat: no-repeat;
+		z-index: -2;
+	}
 	body {
 		width: 100vw;
-		background: #eee;
+		background-color: #eee;
 		display: flex; margin: 0;
 		justify-content: center;
+		z-index: -3
 	}
 	#showcase {
 		font: var(--fontMain);
