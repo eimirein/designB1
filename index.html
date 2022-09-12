@@ -264,7 +264,6 @@
 		transition: 0.1s linear
 	}
 	.msgGalleryEntry:hover { animation: borderPinkBlue linear 1s infinite }
-	.msgGalleryEntry:active { animation: entrySel linear 0.15s forwards }
 	.msgRanking {
 		background: #000a;
 		color: var(--accentColor);
@@ -284,7 +283,6 @@
 		transition: 0.1s linear
 	}
 	.msgRankingEntry:hover { animation: borderPinkBlue linear 1s infinite }
-	.msgRankingEntry:active { animation: entrySel linear 0.15s forwards }
 	.rankingA {
 		width: 100px; height: 100px;
 		border-radius: 50%
@@ -329,7 +327,7 @@
 	
 	/* Optional components */
 	#brightnessCtrl {
-		visibility: hidden;
+		visibility: hidden; z-index: 10;
 		background: #0005;
 		width: 6vmin; height: 6vmin;
 		border-radius: 50%;
@@ -338,7 +336,7 @@
 		transition: 0.3s linear
 	}
 	#brightnessCtrl:hover {
-		width: 30vmin; height: 30vmin; top: -40vmin;
+		transform: scale(5);
 		background: radial-gradient(#fffa, #000a);
 		animation: borderPinkBlue linear 2s infinite
 	}
