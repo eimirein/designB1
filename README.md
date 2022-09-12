@@ -2,6 +2,7 @@
 > Download: https://github.com/eimirein/designB1/releases/tag/v0.2
 
 > Live: https://eimirein.github.io/designB1/
+(current live showcase is optimized for 1366x768 resolution to compare the design with a screenshot of the MAL profile page)
 #
 Technical notes:
 1. ✅ Please read all comments for better understanding, if something is unclear - open an issue;
